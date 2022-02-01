@@ -1,22 +1,22 @@
-const express = require('express');
-const http = require("http");
-const socketIo = require("socket.io");
+import express from 'express';
+import { createServer } from "http";
+import { Server as socketIo } from 'socket.io';
 
-app = express()
+let app = express()
 // app.use(cors())
 // app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 4000
 
 app.get("/", (req, res, next) => {
     res.send("ping");
 })
 
 // THIS IS THE ACTUAL SERVER WHICH IS RUNNING
-const server = http.createServer(app);
+const server = createServer(app);
 
 // handing over server access to socket.io
-const io = socketIo(server, { cors: { origin: "*", methods: "*", } });
+const io = new socketIo(server, { cors: { origin: "*", methods: "*", } });
 
 let connectedUsers = [];
 
