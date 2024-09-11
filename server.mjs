@@ -20,8 +20,19 @@ const io = new socketIo(server, { cors: { origin: "*", methods: "*", } });
 
 let connectedUsers = [];
 
+///////////////////////////// serverside connection events /////////////////////////////
+
+io.engine.on("connection_error", (err) => {
+    console.log('socket connection error: ', err.req);      // the request object
+    console.log('error code: ', err.code);     // the error code, for example 1
+    console.log('error message: ', err.message);  // the error message, for example "Session ID unknown"
+    console.log('error context', err.context);  // some additional error context
+
+});
+
 io.on("connection", (socket) => {
     console.log("New client connected with id: ", socket.id);
+    console.log('total client count: ', io.engine.clientsCount);
 
     // to emit data to a certain client
     socket.emit("topic 1", "some data")
@@ -33,6 +44,7 @@ io.on("connection", (socket) => {
         console.log("Client disconnected with id: ", message);
     });
 });
+///////////////////////////// serverside connection events /////////////////////////////
 
 
 // to emit data to a certain client

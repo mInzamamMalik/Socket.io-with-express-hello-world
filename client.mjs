@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 // const socket = io("https://myap_name.herokuapp.com"); // to connect hosted server on heroku
-const socket = io("http://localhost:3001"); // to connect with locally running Socker.io server
+const socket = io("http://localhost:4000"); // to connect with locally running Socker.io server
 
 
 ///////////////////////////// connection events /////////////////////////////
@@ -68,14 +68,6 @@ socket.on('disconnect', function (reason, details) {
     }
 });
 
-///////////////////////////// connection events /////////////////////////////
-
-// to subcribe to a topic
-socket.on('6657032430c884e3d9d91e5a-online', function (data) {
-    console.log(data);
-});
-
-
 // Handle custom errors sent from the server
 socket.on('error', function (error) {
     console.log("Socket disconnected from server: ", message);
@@ -87,6 +79,15 @@ socket.on('error', function (error) {
         console.error('An error occurred: ' + error.message);
     }
 });
+
+///////////////////////////// connection events /////////////////////////////
+
+// to subcribe to a topic
+socket.on('Test topic', function (data) {
+    console.log(data);
+});
+
+
 
 // setTimeout(() => {
 //     console.log("attemptimg to disconnect from server");
